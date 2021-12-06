@@ -1,0 +1,46 @@
+name: "Change Milestone JS"
+description: "Changing an existent milestone. Pure JS action."
+branding:
+  icon: "edit"
+  color: "purple"
+inputs:
+  token:
+    description: "GitHub Token."
+    required: true
+  by_id:
+    description: "Search milestone by ID."
+    required: false
+  by_number:
+    description: "Search milestone by Number."
+    required: false
+  by_title:
+    description: "Search milestone by Title."
+    required: false
+  title:
+    description: "Set the title of a milestone."
+    required: false
+  state:
+    description: "Set the state of a milestone. Either `open` or `closed`."
+    required: false
+  description:
+    description: "Set the description of a milestone."
+    required: false
+  due_on:
+    description: "Set the due date of a milestone. Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`."
+    required: false
+outputs:
+  id:
+    description: "An ID of the changed milestone."
+  number:
+    description: "A Number of the changed milestone."
+  state:
+    description: "A State of the changed milestone."
+  title:
+    description: "A Title of the changed milestone."
+  description:
+    description: "A Description of the changed milestone."
+  due_on:
+    description: "The due date of the changed milestone."
+runs:
+  using: "node16"
+  main: "dist/index.js"

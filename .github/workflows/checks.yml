@@ -1,0 +1,85 @@
+name: "Code Analysis"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * 0"
+
+concurrency:
+  group: ${{ format('{0}-{1}', github.workflow, github.head_ref) }}
+  cancel-in-progress: true
+
+jobs:
+  CodeQL:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: javascript
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
+  Check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: npm install
+      - name: Check Formatting
+        run: npm run check
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Create Milestone
+        id: create
+        uses: sv-tools/create-milestone-action@v1.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: ${{ github.run_number }}
+          description: "just created"
+          state: open
+      - run: echo "created - id ${{ steps.create.outputs.id }}; number ${{ steps.create.outputs.number }}"
+      - name: Cnange by ID
+        id: change-by-id
+        uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          by_id: ${{ steps.create.outputs.id }}
+          description: "changed by ID"
+      - run: echo "changed by ID - ${{ steps.change-by-id.outputs.description }}"
+      - name: Change by Number
+        id: change-by-number
+        uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          by_number: ${{ steps.create.outputs.number }}
+          description: "changed by Number"
+      - run: echo "changed by Number - ${{ steps.change-by-number.outputs.description }}"
+      - name: Change by Title and Close
+        id: change-by-title
+        uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          by_title: ${{ github.run_number }}
+          description: "changed by Title"
+          state: "closed"
+      - run: echo "changed by Title - ${{ steps.change-by-title.outputs.description }}, state ${{ steps.change-by-title.outputs.state }}"
+      - name: Delete Milestone
+        uses: octokit/request-action@v2.x
+        with:
+          route: DELETE /repos/${{ github.repository }}/milestones/{milestone_number}
+          milestone_number: ${{ steps.create.outputs.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

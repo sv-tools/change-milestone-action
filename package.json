@@ -1,0 +1,35 @@
+{
+  "name": "change-milestone-action",
+  "version": "1.0.0",
+  "description": "GutHub Action to change a Milestone",
+  "keywords": [
+    "GitHub",
+    "Action",
+    "Milestone"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "all": "npm run fmt && npm run build",
+    "build": "ncc build index.js --license licenses.txt",
+    "fmt": "prettier --write index.js package.json action.yml .github/dependabot.yml .github/workflows/*.yml",
+    "check": "prettier --check index.js package.json action.yml .github/dependabot.yml .github/workflows/*.yml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sv-tools/change-milestone-action.git"
+  },
+  "author": "Sergey Vilgelm <sergey@vilgelm.com> (https://vilgelm.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sv-tools/change-milestone-action/issues"
+  },
+  "homepage": "https://github.com/sv-tools/change-milestone-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.33.0",
+    "prettier": "^2.5.1"
+  }
+}
