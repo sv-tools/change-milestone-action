@@ -1,4 +1,4 @@
-# create-milestone-action
+# change-milestone-action
 Changing an existent milestone. Pure JS action.
 
 ## Inputs
