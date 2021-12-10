@@ -1,5 +1,5 @@
 # change-milestone-action
-Changing an existing milestone. Pure JS action.
+Change an existing milestone. Pure JS action.
 
 ## Inputs
 
