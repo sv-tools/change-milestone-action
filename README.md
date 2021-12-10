@@ -1,6 +1,8 @@
 # change-milestone-action
 Change an existing milestone. Pure JS action.
 
+The action is written in JavaScript for speed of execution.
+
 ## Inputs
 
 ### `token`
