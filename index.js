@@ -11,7 +11,7 @@ async function run() {
   if (state) {
     if (!states.includes(state)) {
       throw new Error(
-        `invalid value of "state": "${state}", expected "open" or "closed"`
+        `invalid value of "state": "${state}", expected "open" or "closed"`,
       );
     }
     params["state"] = state;
@@ -31,7 +31,7 @@ async function run() {
   if (due_on) {
     if (isNaN(new Date(due_on).getTime())) {
       throw new Error(
-        `invalid value of "due_on": "${due_on}", expected ISO 8601 format`
+        `invalid value of "due_on": "${due_on}", expected ISO 8601 format`,
       );
     }
     params["due_on"] = due_on;
@@ -51,21 +51,21 @@ async function run() {
   if (byID) {
     errorMessage = `by ID "${byID}"`;
     oldMilestone = milestones.data.find(
-      (milestone) => milestone.id === parseInt(byID, 10)
+      (milestone) => milestone.id === parseInt(byID, 10),
     );
   } else if (byNumber) {
     errorMessage = `by Number "${byNumber}"`;
     oldMilestone = milestones.data.find(
-      (milestone) => milestone.number === parseInt(byNumber, 10)
+      (milestone) => milestone.number === parseInt(byNumber, 10),
     );
   } else if (byTitle) {
     errorMessage = `by Title "${byTitle}"`;
     oldMilestone = milestones.data.find(
-      (milestone) => milestone.title === byTitle
+      (milestone) => milestone.title === byTitle,
     );
   } else {
     throw new Error(
-      `unable to find any milestone, all search attributes are empty`
+      `unable to find any milestone, all search attributes are empty`,
     );
   }
 
