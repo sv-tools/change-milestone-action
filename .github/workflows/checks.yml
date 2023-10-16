@@ -46,7 +46,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Create Milestone
         id: create
-        uses: sv-tools/create-milestone-action@v1.4.1
+        uses: sv-tools/create-milestone-action@v1.5.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: ${{ github.run_number }}
