@@ -2,11 +2,11 @@ name: "Code Analysis"
 
 on:
   push:
+    tags:
+      - v*
     branches:
       - main
   pull_request:
-    branches:
-      - main
   schedule:
     - cron: "0 0 * * 0"
 
@@ -14,36 +14,22 @@ concurrency:
   group: ${{ format('{0}-{1}', github.workflow, github.head_ref) }}
   cancel-in-progress: true
 
+permissions: read-all
+
 jobs:
-  CodeQL:
-    runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: javascript
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
   Check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Install Dependencies
-        run: npm install
-      - name: Check Formatting
-        run: npm run check
+      - uses: actions/checkout@v4.2.2 # immutable action, safe to use a version instead of hashtag
+      - run: npm install
+      - run: npm run check
+
   Test:
     runs-on: ubuntu-latest
     permissions:
       issues: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4.2.2 # immutable action, safe to use a version instead of hashtag
       - name: Create Milestone
         id: create
         uses: sv-tools/create-milestone-action@v1.6.0
@@ -53,7 +39,7 @@ jobs:
           description: "just created"
           state: open
       - run: echo "created - id ${{ steps.create.outputs.id }}; number ${{ steps.create.outputs.number }}"
-      - name: Cnange by ID
+      - name: Change by ID
         id: change-by-id
         uses: ./
         with:
@@ -81,7 +67,6 @@ jobs:
       - name: Delete Milestone
         uses: octokit/request-action@v2.x
         with:
-          route: DELETE /repos/${{ github.repository }}/milestones/{milestone_number}
-          milestone_number: ${{ steps.create.outputs.number }}
+          route: DELETE /repos/${{ github.repository }}/milestones/${{ steps.create.outputs.number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
