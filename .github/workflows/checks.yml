@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v4.2.2 # immutable action, safe to use a version instead of hashtag
       - name: Create Milestone
         id: create
-        uses: sv-tools/create-milestone-action@v1.6.0
+        uses: sv-tools/create-milestone-action@v1.7.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: ${{ github.run_number }}
