@@ -20,7 +20,7 @@ jobs:
   Check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2 # immutable action, safe to use a version instead of hashtag
+      - uses: actions/checkout@v5.0.0 # immutable action, safe to use a version instead of hashtag
       - run: npm install
       - run: npm run check
 
@@ -29,7 +29,7 @@ jobs:
     permissions:
       issues: write
     steps:
-      - uses: actions/checkout@v4.2.2 # immutable action, safe to use a version instead of hashtag
+      - uses: actions/checkout@v5.0.0 # immutable action, safe to use a version instead of hashtag
       - name: Create Milestone
         id: create
         uses: sv-tools/create-milestone-action@v1.7.0
