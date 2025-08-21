@@ -1,6 +1,6 @@
 {
   "name": "change-milestone-action",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "GutHub Action to change a Milestone",
   "keywords": [
     "GitHub",
