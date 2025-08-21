@@ -1,4 +1,5 @@
 # change-milestone-action
+
 Change an existing milestone. Pure JS action.
 
 The action is written in JavaScript for speed of execution.
@@ -66,7 +67,7 @@ The due date of the changed milestone.
 ## Example
 
 ```yaml
-uses: sv-tools/change-milestone-action@v1
+uses: sv-tools/change-milestone-action@v2
 with:
   token: ${{ secrets.GITHUB_TOKEN }}
   by_id: "123"
