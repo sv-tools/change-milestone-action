@@ -20,7 +20,7 @@ jobs:
   Check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.0 # immutable action, safe to use a version instead of hashtag
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - run: npm install
       - run: npm run check
 
@@ -29,10 +29,10 @@ jobs:
     permissions:
       issues: write
     steps:
-      - uses: actions/checkout@v5.0.0 # immutable action, safe to use a version instead of hashtag
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Create Milestone
         id: create
-        uses: sv-tools/create-milestone-action@v2.0.0
+        uses: sv-tools/create-milestone-action@b13d071df1877ae13c83e9e3c796857575a38315 # v2.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: ${{ github.run_number }}
@@ -65,7 +65,7 @@ jobs:
           state: "closed"
       - run: echo "changed by Title - ${{ steps.change-by-title.outputs.description }}, state ${{ steps.change-by-title.outputs.state }}"
       - name: Delete Milestone
-        uses: octokit/request-action@v2.x
+        uses: octokit/request-action@dad4362715b7fb2ddedf9772c8670824af564f0d # v2.4.0
         with:
           route: DELETE /repos/${{ github.repository }}/milestones/${{ steps.create.outputs.number }}
         env:
